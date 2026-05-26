@@ -20,8 +20,14 @@ def frontmatter(text: str) -> dict[str, str]:
     match = re.match(r"^---\n(.*?)\n---\n", text, flags=re.S)
     if not match:
         raise AssertionError("missing YAML frontmatter")
+    raw = match.group(1)
+    for line in raw.splitlines():
+        if line.startswith("description:"):
+            value = line.split(":", 1)[1].strip()
+            if ": " in value and not (value.startswith('"') or value.startswith("'")):
+                raise AssertionError("description with ': ' must be quoted for Codex YAML parsing")
     data: dict[str, str] = {}
-    for line in match.group(1).splitlines():
+    for line in raw.splitlines():
         if ":" in line:
             key, value = line.split(":", 1)
             data[key.strip()] = value.strip().strip('"')

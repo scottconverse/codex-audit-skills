@@ -1,6 +1,6 @@
 ---
 name: audit-full
-description: Deep multi-role Codex audit of a project by a simulated team - Principal Engineer, Senior UI/UX Designer, Technical Writer, Test Engineer, and QA Engineer - that reviews code, UX, docs, tests, and runtime behavior, then produces an executive report plus five per-role deep-dive reports with severity-ranked findings, blast-radius analysis, a this-sprint punch list, and a next-sprint watchlist. Use for full audits, release gates, readiness reviews, and adversarial second opinions. Compatibility: use audit-team when older prompts require that name.
+description: "Deep multi-role Codex audit of a project by a simulated team - Principal Engineer, Senior UI/UX Designer, Technical Writer, Test Engineer, and QA Engineer - that reviews code, UX, docs, tests, and runtime behavior, then produces an executive report plus five per-role deep-dive reports with severity-ranked findings, blast-radius analysis, a this-sprint punch list, and a next-sprint watchlist. Use for full audits, release gates, readiness reviews, and adversarial second opinions. Compatibility: use audit-team when older prompts require that name."
 ---
 
 # Audit Full
