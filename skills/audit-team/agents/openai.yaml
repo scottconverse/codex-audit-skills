@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit Team"
+  short_description: "Compatibility alias that routes to Audit Full"
+  default_prompt: "Use $audit-team for the legacy prompt name; route the work through $audit-full."

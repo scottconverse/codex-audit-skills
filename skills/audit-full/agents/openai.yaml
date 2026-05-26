@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit Full"
+  short_description: "Deep multi-role audit with reports and sprint actions"
+  default_prompt: "Use $audit-full to perform a full evidence-based audit of this repo and produce the complete audit packet."

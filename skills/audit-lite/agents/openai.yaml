@@ -1,0 +1,4 @@
+interface:
+  display_name: "Audit Lite"
+  short_description: "Fast evidence-based audit for narrow changes"
+  default_prompt: "Use $audit-lite to verify this PR or dev report and return a severity-ranked punchlist."
