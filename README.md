@@ -6,9 +6,19 @@ This repository packages three installable Codex skills:
 
 - `audit-lite`: a fast, evidence-based audit for bounded changes.
 - `audit-full`: a deep multi-role audit packet for release gates and broad reviews.
-- `audit-team`: a compatibility alias for older prompts; it routes to `audit-full`.
+- `audit-team`: the full five-role audit-team workflow under its original prompt name.
 
 The goal is simple: make Codex audits harder to fake and easier to act on. Findings must cite evidence, classify severity, state blast radius when needed, and give a concrete fix path.
+
+## Fidelity To The Source Skills
+
+These are full-function Codex adaptations of the Claude skills in `source-originals/claude/`, not summaries.
+
+- `skills/audit-lite/SKILL.md` preserves the original compact reviewer workflow, report template, severity framework, blast-radius rules, commitments, guardrails, and sign-off checklist.
+- `skills/audit-team/SKILL.md` preserves the original single-file five-role workflow and bundles the role references/templates so its links resolve in Codex.
+- `skills/audit-full/SKILL.md` preserves the original bundled `audit-team-full` workflow under the Codex-native `audit-full` name.
+
+Only Claude-specific tool references were adapted, such as replacing `present_files` with Codex final-response file paths and replacing `AskUserQuestion` with a direct user question followed by waiting.
 
 ## Install
 
@@ -50,7 +60,7 @@ Use $audit-full to perform a release-gate audit of this repo.
 Use $audit-team to review this project.
 ```
 
-The last form is supported for compatibility, but `audit-full` is the maintained name.
+`audit-team` and `audit-full` both provide the full multi-role audit capability. `audit-full` is the Codex-native name; `audit-team` preserves older handoff compatibility.
 
 ## Documentation
 

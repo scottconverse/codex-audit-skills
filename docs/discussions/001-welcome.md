@@ -6,7 +6,7 @@ This repo packages evidence-first audit workflows for Codex:
 
 - `audit-lite` for narrow PR and dev-report checks
 - `audit-full` for full audit packets and release gates
-- `audit-team` as a compatibility alias for older handoffs
+- `audit-team` as the original five-role audit workflow name
 
 Suggested discussion prompts:
 

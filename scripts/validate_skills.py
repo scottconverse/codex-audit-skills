@@ -8,7 +8,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SKILLS = {
     "audit-lite": {"references": False, "templates": False},
     "audit-full": {"references": True, "templates": True},
-    "audit-team": {"references": False, "templates": False},
+    "audit-team": {"references": True, "templates": True},
 }
 
 
@@ -65,8 +65,20 @@ def main() -> None:
         ROOT / "docs" / "index.html",
         ROOT / "docs" / "manuals" / "USER_MANUAL.md",
         ROOT / "docs" / "architecture" / "ARCHITECTURE.md",
+        ROOT / "source-originals" / "claude" / "audit-lite.SKILL.md",
+        ROOT / "source-originals" / "claude" / "audit-team.SKILL.md",
+        ROOT / "source-originals" / "claude" / "audit-team-full" / "SKILL.md",
     ]:
         assert path.is_file(), f"missing required repo artifact: {path.relative_to(ROOT)}"
+
+    minimum_sizes = {
+        "audit-lite": 9000,
+        "audit-full": 9000,
+        "audit-team": 9000,
+    }
+    for skill, minimum_size in minimum_sizes.items():
+        size = (ROOT / "skills" / skill / "SKILL.md").stat().st_size
+        assert size >= minimum_size, f"{skill}: SKILL.md appears lossy ({size} bytes)"
 
     print("validate_skills: PASS")
 

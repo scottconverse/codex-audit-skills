@@ -1,9 +1,9 @@
 ---
-name: audit-full
-description: Deep multi-role Codex audit of a project by a simulated team - Principal Engineer, Senior UI/UX Designer, Technical Writer, Test Engineer, and QA Engineer - that reviews code, UX, docs, tests, and runtime behavior, then produces an executive report plus five per-role deep-dive reports with severity-ranked findings, blast-radius analysis, a this-sprint punch list, and a next-sprint watchlist. Use for full audits, release gates, readiness reviews, and adversarial second opinions. Compatibility: use audit-team when older prompts require that name.
+name: audit-team
+description: Deep multi-role audit of a project by a simulated team — Principal Engineer, Senior UI/UX Designer, Technical Writer, Test Engineer, and QA Engineer — that reviews code, UX, docs, tests, and runtime behavior, then produces an executive report plus five per-role deep-dive reports with severity-ranked findings, blast-radius analysis, a this-sprint punch list, and a next-sprint watchlist. Use this skill whenever the user asks for an audit, review, code review, design review, doc review, test audit, QA audit, pre-release check, pre-merge check, "tear this apart," "tell me what's wrong," "is this ready to ship," or a second opinion before handing a project to a dev team, a customer, or leadership. Also trigger when the user provides a repo, folder, PR, or project and asks for findings, gaps, risks, quality issues, or readiness assessment. Prefer this skill over generic code review — it catches what single-role reviews miss and produces deliverables a dev team can act on this sprint.
 ---
 
-# Audit Full
+# Audit Team
 
 A five-role audit team that performs a deep, honest, balanced audit of a project and delivers a dev-team-ready set of reports. Each role is a domain expert, and the roles work in parallel. The orchestrator (you) synthesizes their findings into a single coherent audit package.
 
@@ -33,7 +33,7 @@ Cross-cutting guides every role uses:
 
 ### Phase 1 — Intake and scope
 
-Before spawning anything, confirm scope with the user. Use ask the user directly in chat and stop until they answer if it's ambiguous. You need:
+Before spawning anything, confirm scope with the user. Use AskUserQuestion if it's ambiguous. You need:
 
 1. **What are we auditing?** A repo path, a folder, a specific PR, a URL, or a project description. If the user hasn't told you, ask.
 2. **Scope mode:**
@@ -50,7 +50,7 @@ Once scope is confirmed, create the output directory: `audit-<project-name>-<dat
 
 ### Phase 2 — Run the roles
 
-Use Codex subagents in parallel when an appropriate subagent tool is available and authorized. If no subagent tool is available, run the five role lenses sequentially and state that honestly in the audit packet. Each role pass or subagent:
+Spawn the role subagents **in parallel** (single message, multiple Agent tool calls) so they run concurrently. Each subagent:
 
 - Reads its role reference file in full before starting
 - Reads `references/severity-framework.md` and `references/blast-radius.md`
@@ -64,9 +64,9 @@ See `references/orchestration.md` for the exact prompt templates for each subage
 
 ### Phase 3 — Synthesize and deliver
 
-Once all role reports are in:
+Once all subagent reports are in:
 
-1. Read each deep-dive file the role passes produced
+1. Read each deep-dive file the subagents produced
 2. Cross-reference findings — a single issue may show up in multiple roles (e.g. a security bug with no test and no doc is a triple finding). Merge where appropriate.
 3. Build the executive audit report (`00-executive-audit.md`) using the template. It is the dev team's front door. It must include:
    - Executive summary (3–5 sentences, honest)
@@ -78,7 +78,7 @@ Once all role reports are in:
    - Blast-radius notes (decisions or fixes that ripple outward — call them out explicitly so the dev team doesn't break adjacent code)
 4. Build the `sprint-punchlist.md` and `next-sprint-watchlist.md` as standalone files for the dev team's sprint planning.
 5. If writer mode includes drafting replacements, put those in `doc-rewrites/`.
-6. Present all files to the user with `provide the generated file paths in the final response`.
+6. Present all files to the user with `mcp__cowork__present_files`.
 
 Do not declare the audit complete until all files exist and all internal cross-references resolve.
 
@@ -159,13 +159,6 @@ Before declaring the audit complete, confirm every item:
 - [ ] Next-sprint watchlist is populated (it's rarely empty for real projects)
 - [ ] What-works-well sections are honest and specific
 - [ ] If writer mode includes drafting, the doc-rewrites/ directory is populated and contents are accurate
-- [ ] Files presented to the user via `provide the generated file paths in the final response`
+- [ ] Files presented to the user via `present_files`
 
 Then — and only then — tell the user the audit is ready.
-
-
----
-
-## Codex adaptation note
-
-This is a full-fidelity Codex port of the source Claude `audit-team-full` bundle. The role references and templates are copied into this skill directory unchanged except for NUL-byte cleanup. Claude-only tool names are translated to Codex behavior, but the workflow and deliverables are preserved.

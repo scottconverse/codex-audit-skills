@@ -1,6 +1,6 @@
 ---
 name: audit-lite
-description: Fast single-pass audit of a small code change, bug fix, or scoped diff — covers correctness, UX, docs, tests, and runtime behavior in one tight report. Use this skill whenever the user wants a quick audit, lite audit, smoke audit, spot check, sanity check, or pre-merge review of a recent fix or small feature. Trigger on phrases like "audit this fix," "quick audit," "lite audit," "is this fix ready," "review this small change," "between fixes," "smoke check before merge," or any review request scoped to a single bug fix, a few files, or a recent diff. Prefer this over `audit-team`/`audit-full` when the change is small, time is short, and the full multi-role package would be overkill. Escalate to `audit-team`/`audit-full` if findings warrant it.
+description: Fast single-pass audit of a small code change, bug fix, or scoped diff — covers correctness, UX, docs, tests, and runtime behavior in one tight report. Use this skill whenever the user wants a quick audit, lite audit, smoke audit, spot check, sanity check, or pre-merge review of a recent fix or small feature. Trigger on phrases like "audit this fix," "quick audit," "lite audit," "is this fix ready," "review this small change," "between fixes," "smoke check before merge," or any review request scoped to a single bug fix, a few files, or a recent diff. Prefer this over `audit-team` when the change is small, time is short, and the full multi-role package would be overkill. Escalate to `audit-team` if findings warrant it.
 ---
 
 # Audit Lite
@@ -81,7 +81,7 @@ If escalation is warranted, the lite report still ships — but it ends with a c
 
 ### Step 5 — Present the file
 
-Use `provide the generated file paths in the final response` to make the report visible. Do not declare audit-lite done until the file exists and any cross-references resolve.
+Use `present_files` to make the report visible. Do not declare audit-lite done until the file exists and any cross-references resolve.
 
 ---
 
@@ -91,7 +91,7 @@ Use `provide the generated file paths in the final response` to make the report 
 # Audit Lite — <scope>
 **Date:** <YYYY-MM-DD>
 **Scope:** <one sentence — what was reviewed>
-**Reviewer:** Codex (audit-lite)
+**Reviewer:** Claude (audit-lite)
 
 ## TL;DR
 <2–3 sentences. Ship / ship-with-caveats / don't ship. Honest verdict.>
@@ -203,13 +203,6 @@ Before declaring audit-lite complete, confirm:
 - [ ] Every Blocker and Critical has a blast-radius block
 - [ ] "What's working" is populated and specific
 - [ ] Escalation recommendation is explicit (yes or no, with reason)
-- [ ] Report file presented to the user via `provide the generated file paths in the final response`
+- [ ] Report file presented to the user via `present_files`
 
 Then — and only then — tell the user the lite audit is ready.
-
-
----
-
-## Codex adaptation note
-
-This is a full-fidelity Codex port of the source Claude `audit-lite` skill. Claude-only presentation/tool names are translated to Codex behavior, but the audit workflow, severity framework, evidence bar, report template, guardrails, and sign-off checklist are intentionally preserved.

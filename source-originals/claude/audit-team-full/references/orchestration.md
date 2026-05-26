@@ -15,7 +15,7 @@ This file tells you how to run the roles in parallel via the Agent tool and how 
 5. **Read each deep-dive file they wrote.**
 6. **Cross-reference and synthesize** — look for findings that touch multiple roles.
 7. **Write the executive audit, sprint punchlist, and next-sprint watchlist.**
-8. **Package and present** — hand over by listing the generated file paths in the final response.
+8. **Package and present** — hand over via `present_files`.
 
 ---
 
@@ -152,7 +152,7 @@ Before declaring done:
 
 ## Presenting the final package
 
-Use `mcp__cowork__final-response file paths` to deliver the files. Order matters — the user should see the exec report first:
+Use `mcp__cowork__present_files` to deliver the files. Order matters — the user should see the exec report first:
 
 1. `00-executive-audit.md`
 2. `sprint-punchlist.md`

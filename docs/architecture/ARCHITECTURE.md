@@ -11,12 +11,13 @@ flowchart LR
     User["User prompt"] --> Router["Codex skill matcher"]
     Router --> Lite["audit-lite"]
     Router --> Full["audit-full"]
-    Router --> Team["audit-team alias"]
-    Team --> Full
+    Router --> Team["audit-team"]
     Full --> Refs["references/"]
     Full --> Templates["templates/"]
+    Team --> TeamRefs["references/ + templates/"]
     Lite --> Chat["Chat punchlist"]
     Full --> Packet["Audit packet folder"]
+    Team --> TeamPacket["Audit packet folder"]
 ```
 
 ## Install Flow
@@ -51,13 +52,21 @@ skills/
   audit-team/
     SKILL.md
     agents/openai.yaml
+    references/
+    templates/
 ```
 
 ## Design Decisions
 
-### `audit-full` Is Canonical
+### Full-Fidelity Ports
 
-The Claude source used `audit-team`. Codex already commonly uses `audit-full` for broad audits, so this repo makes `audit-full` canonical and keeps `audit-team` as a compatibility alias.
+The Claude source used `audit-lite`, `audit-team`, and a bundled `audit-team-full` directory. This repository keeps the full behavior of each source:
+
+- `audit-lite` remains the compact reviewer.
+- `audit-team` remains the original five-role audit workflow.
+- `audit-full` is the Codex-native name for the bundled full audit.
+
+Original source files are stored under `source-originals/claude/` so maintainers can diff future adaptations against the source material.
 
 ### References Stay Bundled
 

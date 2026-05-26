@@ -8,7 +8,7 @@ This package installs three Codex skills:
 - `audit-full`
 - `audit-team`
 
-`audit-team` is a compatibility alias. New prompts should use `audit-full`.
+`audit-team` is the original five-role audit name. `audit-full` is the Codex-native name for the bundled full-audit skill. Both provide full multi-role audit capability.
 
 ## Installation
 
@@ -45,7 +45,17 @@ Use `audit-full` for:
 - broad UX/docs/tests/runtime QA reviews
 - adversarial "tear this apart" audits
 
-Use `audit-team` only when an older handoff names it. Codex will route it to `audit-full`.
+Use `audit-team` when an older handoff names it or when you want the original five-role audit-team prompt name.
+
+## Source Fidelity
+
+The adapted Codex skills preserve the original Claude skill behavior:
+
+- `audit-lite` keeps the same compressed five-dimension pass, report template, severity framework, blast-radius rules, and final sign-off checklist.
+- `audit-team` keeps the same three-phase five-role workflow and bundles the same references and templates.
+- `audit-full` keeps the same bundled full audit capability under a Codex-native name.
+
+The original source files are included in `source-originals/claude/` for comparison. The intended changes are Codex-specific tool substitutions, not workflow reductions.
 
 ## Prompt Examples
 
